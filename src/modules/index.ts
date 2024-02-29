@@ -1,0 +1,7 @@
+export * from './attendants.module'
+export * from './categories.module'
+export * from './deliveries.module'
+export * from './orders.module'
+export * from './payments.module'
+export * from './products.module'
+export * from './users.module'
