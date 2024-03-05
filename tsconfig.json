@@ -17,5 +17,15 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@services": ["./src/core/application/services"],
+      "@modules": ["./src/modules"],
+      "@enums": ["./src/core/application/enums"],
+      "@interfaces": ["./src/core/application/interfaces"],
+      "@entities": ["./src/core/domain/entities"],
+      "@repositories": ["./src/core/infrastructure/db/repositories"],
+      "@controllers": ["./src/core/infrastructure/http/controllers"],
+      "@dtos": ["./src/core/infrastructure/http/dtos"]
+    }
   }
 }

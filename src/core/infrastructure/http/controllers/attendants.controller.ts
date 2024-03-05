@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Param, Patch, Delete } from "@nestjs/common";
-import { AttendantsService } from "src/core/application/services";
-import { CreateAttendantDto, UpdateAttendantDto } from "../dtos";
+import { AttendantsService } from "@services";
+import { CreateAttendantDto, UpdateAttendantDto } from "@dtos";
 
 @Controller('attendants')
 export class AttendantsController {

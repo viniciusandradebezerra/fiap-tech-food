@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OrderItem } from 'src/core/domain/entities';
+import { OrderItem } from '@entities';
 import { Repository } from 'typeorm';
-import { CreateOrderItemDto } from '../../http/dtos';
+import { CreateOrderItemDto } from '@dtos';
 
 @Injectable()
 export class OrderItemRepository {

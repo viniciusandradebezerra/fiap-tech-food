@@ -1,8 +1,8 @@
 // categories.service.ts
 
 import { Injectable } from "@nestjs/common";
-import { Category } from "src/core/domain/entities";
-import { CategoriesRepository } from "src/core/infrastructure/db/repositories";
+import { Category } from "@entities";
+import { CategoriesRepository } from "@repositories";
 
 
 @Injectable()

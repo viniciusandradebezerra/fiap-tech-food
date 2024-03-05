@@ -1,11 +1,6 @@
-import { EOrdersStatus } from "src/core/application/enums";
+import { EOrdersStatus } from "@enums";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, OneToMany } from "typeorm";
-import { Attendant } from "./attendant.entity";
-import { Delivery } from "./delivery.entity";
-import { OrderItem } from "./order-item.entity";
-import { Payment } from "./payment.entity";
-import { User } from "./user.entity";
-
+import { Attendant, Delivery, OrderItem, Payment, User } from "@entities";
 
 @Entity()
 export class Order {
@@ -26,8 +21,7 @@ export class Order {
   })
   status: string;
 
-  @ManyToOne(() => Payment)
-  @JoinColumn({ name: 'paymentId' })
+  @OneToMany(() => Payment, payment => payment.order, { eager: false })
   payment: Payment;
 
   @Column({ type: 'float', default: 0 })

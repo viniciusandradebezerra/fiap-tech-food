@@ -1,8 +1,21 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { Order, Payment, OrderItem } from "src/core/domain/entities";
-import { OrdersRepository, ProductsRepository, AttendantRepository, OrderItemRepository, PaymentRepository, UsersRepository } from "src/core/infrastructure/db/repositories";
-import { CreateOrderDto, UpdateOrderStatusDto, CreatePaymentDto, CreateOrderItemDto } from "src/core/infrastructure/http/dtos";
-import { EPaymentStatus } from "../enums";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Order, Payment, OrderItem } from '@entities';
+import {
+  OrdersRepository,
+  ProductsRepository,
+  AttendantRepository,
+  OrderItemRepository,
+  PaymentRepository,
+  UsersRepository,
+} from '@repositories';
+import {
+  CreateOrderDto,
+  UpdateOrderStatusDto,
+  CreatePaymentDto,
+  CreateOrderItemDto,
+} from '@dtos';
+import { EOrdersStatus, EPaymentStatus } from '@enums';
+import { FindOrdersParams } from '@interfaces';
 
 @Injectable()
 export class OrdersService {
@@ -16,12 +29,14 @@ export class OrdersService {
   ) {}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const user = await this.userRepository.findOne(createOrderDto.userId,);
+    const user = await this.userRepository.findOne(createOrderDto.userId);
     if (!user) {
       throw new NotFoundException(`User #${createOrderDto.userId} not found`);
     }
 
-    const attendant = await this.attendantRepository.findOne(createOrderDto.attendantId);
+    const attendant = await this.attendantRepository.findOne(
+      createOrderDto.attendantId,
+    );
     if (!attendant) {
       throw new NotFoundException(
         `Attendant #${createOrderDto.attendantId} not found`,
@@ -62,18 +77,21 @@ export class OrdersService {
   async addPayment(
     orderId: number,
     createPaymentDto: CreatePaymentDto,
-  ): Promise<Payment> {
-    const order = await this.ordersRepository.findOne(orderId);
+  ): Promise<any> {
+    const order: any = await this.ordersRepository.findOne(orderId);
     if (!order) {
       throw new NotFoundException(`Order #${orderId} not found`);
     }
-
-    console.log(createPaymentDto.paymentMethod)
-
-    return await this.paymentRepository.create(order, {
-      method: createPaymentDto.paymentMethod,
-      status: EPaymentStatus.PENDING,
-    });
+    if (order.payment.length > 0) {
+      return {
+        message: `There is already a payment for the order #${orderId}`,
+      };
+    } else {
+      return await this.paymentRepository.create(order, {
+        method: createPaymentDto.paymentMethod,
+        status: EPaymentStatus.PENDING,
+      });
+    }
   }
 
   async updateOrderTotalValue(order: Order): Promise<void> {
@@ -91,34 +109,41 @@ export class OrdersService {
   async addItem(
     orderId: number,
     createOrderItemDto: CreateOrderItemDto,
-  ): Promise<OrderItem> {
+  ): Promise<any> {
     const order = await this.ordersRepository.findOne(orderId);
     if (!order) {
       throw new NotFoundException(`Order #${orderId} not found`);
     }
-    const product = await this.productsRepository.findOne(createOrderItemDto.productId);
+    const product = await this.productsRepository.findOne(
+      createOrderItemDto.productId,
+    );
     if (!product) {
       throw new NotFoundException(
         `Product #${createOrderItemDto.productId} not found`,
       );
     }
 
-    let orderItem = await this.orderItemRepository.findOneByOrderId(orderId, createOrderItemDto);
+    let orderItem = await this.orderItemRepository.findOneByOrderId(
+      orderId,
+      createOrderItemDto,
+    );
+
+    console.log(orderItem, 'before');
 
     if (orderItem) {
       orderItem.quantity += createOrderItemDto.quantity;
       orderItem.unitPrice = product.price;
+
+      await this.orderItemRepository.save(orderItem);
     } else {
       orderItem = await this.orderItemRepository.create({
         order: order,
-        orderId,
         product: product,
         quantity: createOrderItemDto.quantity,
         unitPrice: product.price,
       });
     }
 
-    await this.orderItemRepository.save(orderItem);
     await this.updateOrderTotalValue(order);
 
     return orderItem;
@@ -149,5 +174,19 @@ export class OrdersService {
     await this.orderItemRepository.remove(orderItem.id);
 
     return { message: `Order item #${itemId} for order #${orderId} deleted` };
+  }
+
+  async getList(): Promise<Order[]> {
+    const params: FindOrdersParams = {
+      excludeStatus: [EOrdersStatus.CANCEL, EOrdersStatus.DELIVERED],
+      orderByStatus: [
+        EOrdersStatus.CONFIRMATION,
+        EOrdersStatus.IN_PREPARATION,
+        EOrdersStatus.READY_DELIVERY,
+        EOrdersStatus.SENT_DELIVERY,
+      ],
+    };
+
+    return await this.ordersRepository.find(params);
   }
 }

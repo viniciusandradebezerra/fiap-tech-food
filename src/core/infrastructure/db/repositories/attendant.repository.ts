@@ -2,9 +2,9 @@
 
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Attendant } from "src/core/domain/entities";
+import { Attendant } from "@entities";
 import { Repository } from "typeorm";
-import { CreateAttendantDto, UpdateAttendantDto } from "../../http/dtos";
+import { CreateAttendantDto, UpdateAttendantDto } from "@dtos";
 
 @Injectable()
 export class AttendantRepository {

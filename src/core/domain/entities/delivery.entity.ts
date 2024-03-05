@@ -1,6 +1,6 @@
-import { EDeliveryStatus } from "src/core/application/enums";
+import { EDeliveryStatus } from "@enums";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column } from "typeorm";
-import { Order } from "./order.entity";
+import { Order } from "@entities";
 
 @Entity()
 export class Delivery {

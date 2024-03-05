@@ -1,9 +1,9 @@
 // src/core/application/services/attendants.service.ts
 
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { Attendant } from "src/core/domain/entities";
-import { AttendantRepository } from "src/core/infrastructure/db/repositories";
-import { CreateAttendantDto, UpdateAttendantDto } from "src/core/infrastructure/http/dtos";
+import { Attendant } from "@entities";
+import { AttendantRepository } from "@repositories";
+import { CreateAttendantDto, UpdateAttendantDto } from "@dtos";
 
 @Injectable()
 export class AttendantsService {

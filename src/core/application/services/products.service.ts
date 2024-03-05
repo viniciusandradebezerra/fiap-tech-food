@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { Product } from "src/core/domain/entities";
-import { ProductsRepository } from "src/core/infrastructure/db/repositories";
-import { CreateProductDto, UpdateProductDto } from "src/core/infrastructure/http/dtos";
+import { Product } from "@entities";
+import { ProductsRepository } from "@repositories";
+import { CreateProductDto, UpdateProductDto } from "@dtos";
 
 
 @Injectable()

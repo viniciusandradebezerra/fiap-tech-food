@@ -1,5 +1,5 @@
 import { Attendant } from "src/core/domain/entities";
-import { CreateAttendantDto, UpdateAttendantDto } from "src/core/infrastructure/http/dtos";
+import { CreateAttendantDto, UpdateAttendantDto } from "@dtos";
 
 
 export interface IAttendantsRepository {

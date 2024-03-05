@@ -3,6 +3,7 @@ export * from './categories.service'
 export * from './orders.service'
 export * from './products.service'
 export * from './users.service'
+export * from './payments.service'
 
 
 
