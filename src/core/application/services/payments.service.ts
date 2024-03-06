@@ -12,7 +12,7 @@ export class PaymentService {
 
   async handlePaymentNotification(
     id: number,
-    status: EPaymentStatus,
+    status: string,
   ): Promise<any> {
 
     const order = await this.ordersRepository.findOne(id)

@@ -20,8 +20,15 @@ export class Payment {
   @Column({ type: 'text' })
   method: EPaymentMethod;
 
-  @Column({ type: 'text' })
-  status: EPaymentStatus;
+  @Column({
+    type: 'text',
+    transformer: {
+      to: (value: any) => value,
+      from: (value: any) => String(value), 
+    },
+    default: EPaymentStatus.PENDING,
+  })
+  status: string;
 
   @Column({ type: 'float' })
   value: number;

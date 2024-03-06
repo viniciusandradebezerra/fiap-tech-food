@@ -32,9 +32,9 @@ export class PaymentRepository {
     return payment;
   }
 
-  async updateStatus(paymentId: number, status: EPaymentStatus): Promise<Payment> {
+  async updateStatus(paymentId: number, status: any): Promise<Payment> {
     const payment = await this.findOne(paymentId);
-    payment.status = status;
+    payment.status = status.status;
     return this.repository.save(payment);
   }
 }

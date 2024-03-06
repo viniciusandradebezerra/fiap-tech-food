@@ -33,4 +33,7 @@ export class Order {
 
   @OneToMany(() => OrderItem, orderItem => orderItem.order, { eager: false })
   items: OrderItem[];
+ 
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  created: Date;
 }

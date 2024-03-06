@@ -128,8 +128,6 @@ export class OrdersService {
       createOrderItemDto,
     );
 
-    console.log(orderItem, 'before');
-
     if (orderItem) {
       orderItem.quantity += createOrderItemDto.quantity;
       orderItem.unitPrice = product.price;
@@ -146,7 +144,7 @@ export class OrdersService {
 
     await this.updateOrderTotalValue(order);
 
-    return orderItem;
+    return { message: `Product #${createOrderItemDto.productId} added` };
   }
 
   async findOne(orderId: number): Promise<Order> {
@@ -177,16 +175,6 @@ export class OrdersService {
   }
 
   async getList(): Promise<Order[]> {
-    const params: FindOrdersParams = {
-      excludeStatus: [EOrdersStatus.CANCEL, EOrdersStatus.DELIVERED],
-      orderByStatus: [
-        EOrdersStatus.CONFIRMATION,
-        EOrdersStatus.IN_PREPARATION,
-        EOrdersStatus.READY_DELIVERY,
-        EOrdersStatus.SENT_DELIVERY,
-      ],
-    };
-
-    return await this.ordersRepository.find(params);
+    return await this.ordersRepository.find();
   }
 }

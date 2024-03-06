@@ -7,7 +7,7 @@ export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
   @Post(':id')
-  async receivePaymentNotification(@Param('id') id: number, @Body() status: EPaymentStatus): Promise<void> {
+  async receivePaymentNotification(@Param('id') id: number, @Body() status: string): Promise<void> {
     return await this.paymentService.handlePaymentNotification(id, status);
   }
 }

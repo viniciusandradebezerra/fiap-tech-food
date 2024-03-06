@@ -1,7 +1,7 @@
-# Use uma imagem base que não seja Alpine, como a versão Buster (Debian)
+
 FROM node:latest
 
-# Define o diretório de trabalho no container
+
 WORKDIR /usr/src/app
 
 # Copia os arquivos `package.json` e `package-lock.json` (ou `yarn.lock`)

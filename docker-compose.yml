@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   app:
-    container_name: nestjs_app
+    container_name: nestjs-app
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,5 +10,9 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+      - logs:/usr/src/app/logs
     environment:
       NODE_ENV: production
+
+volumes:
+  logs:
