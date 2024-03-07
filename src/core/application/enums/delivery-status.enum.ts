@@ -3,7 +3,6 @@ export enum EDeliveryStatus {
     SENT = 'SENT',
     DELIVERED = 'DELIVERED',
     CANCELED = 'CANCELED',
-    ERROR = 'ERROR',
-    NONE = 'NONE',
+    ERROR = 'ERROR'
   }
   

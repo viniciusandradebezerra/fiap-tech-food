@@ -1,73 +1,123 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# FIAP challenge food
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+> FIAP pós Software Architecture - Tech Challenge projeto de um Restaurante `gofood`
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Tabela de Contexto
+- [FIAP challenge food](#fiap-challenge-food)
+  - [Arquitetura do projeto](#arquitetura-do-projeto)
+  - [Stack](#stack)
+  - [Para Desenvolver](#para-desenvolver)
+  - [Para Testar a aplicação usando Docker/Docker Compose](#para-testar-a-aplicação-usando-dockerdocker-compose)
+    - [Como testar usando o `curl`](#como-testar-usando-o-curl)
+    - [Pode ser testado o fluxo completo usando a collection insomnia](#pode-ser-testado-o-fluxo-completo-usando-a-collection-insomnia)
+  - [Referencias importantes](#referencias-importantes)
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Arquitetura do projeto
 
-## Installation
+- `src\core`: Este é o diretório principal onde toda a lógica central do aplicativo reside. Ele é dividido em três subdiretórios principais:
+  - `application`: Este diretório contém a camada de aplicação, onde a lógica de negócios é implementada. Ele contém serviços, interfaces e enums relacionados às operações de alto nível do aplicativo.
+    - `services`: Este diretório geralmente contém classes ou módulos que implementam a lógica de negócios específica do aplicativo. Eles interagem com os repositórios de domínio para buscar ou persistir dados e realizam operações de alto nível para atender aos requisitos do sistema.
+    - `interfaces`: Aqui são definidas as interfaces que descrevem contratos entre diferentes partes do sistema. Isso ajuda a garantir que as diferentes camadas e módulos possam se comunicar de forma eficaz e flexível, promovendo a coesão e a baixa dependência entre os componentes.
+    - `enums`:  Este diretório contém enums ou tipos enumerados que representam conjuntos fixos de valores que são usados em várias partes do aplicativo. Eles são úteis para representar estados, tipos ou opções pré-definidas de forma mais legível e segura.
+  - `domain`: Aqui é onde os modelos de domínio e as regras de negócios são definidos. As entidades do domínio, que representam os conceitos fundamentais do negócio, são colocadas neste diretório.
+    - `entities`: Aqui estão as entidades de domínio que representam os conceitos centrais e fundamentais do negócio. Elas encapsulam dados e comportamentos relacionados a esses conceitos e formam a base do modelo de domínio do aplicativo.
+  - `infrastructure`: Esta camada contém todos os detalhes de implementação, como acesso a banco de dados, serviços externos e interfaces de usuário. Ele é dividido em subdiretórios para diferentes tipos de infraestrutura, como banco de dados e HTTP.
+    - `db`: Este diretório normalmente contém classes ou módulos responsáveis pela interação com o banco de dados. Isso inclui a implementação de repositórios, mapeamento objeto-relacional (ORM), configuração de conexão com o banco de dados, migrações de esquema, etc.
+    - `http`: Aqui estão os componentes relacionados à comunicação HTTP, como controladores, middlewares e rotas. Eles lidam com requisições HTTP vindas de clientes externos (como navegadores da web ou aplicativos móveis) e encaminham essas solicitações para os serviços apropriados na camada de aplicação.
 
-```bash
-$ npm install
-```
+## Stack
 
-## Running the app
+- [x] [NestJS ][0] - É um framework para construção de aplicativos Node.js escaláveis, eficientes e de fácil manutenção. Ele utiliza TypeScript e é baseado no conceito de módulos, controladores, provedores de serviços e injeção de dependências para facilitar o desenvolvimento de aplicativos back-end robustos.
+- [x] [Domain-Driven Design] - Domain-Driven Design é uma abordagem para desenvolvimento de software que se concentra na modelagem do domínio do problema. Ela promove uma colaboração intensa entre desenvolvedores e especialistas do domínio, resultando em um modelo de domínio claro e uma arquitetura de software que reflete fielmente os conceitos do domínio.
+- [x] [Clean Architecture] - É um estilo de arquitetura de software que enfatiza a separação de preocupações e a independência de detalhes de implementação. Ele propõe uma estrutura em camadas, onde a lógica de negócios central é isolada do código de infraestrutura, permitindo uma fácil manutenção, teste e evolução do sistema.
+- [x] [sqlite3][3] - É um sistema de gerenciamento de banco de dados SQL embutido, de alta confiabilidade e autônomo. Ele é amplamente utilizado em aplicativos que requerem um banco de dados leve e simples de implantar, como aplicativos móveis e aplicativos da web de pequeno a médio porte.
+- [x] [TypeORM][4] - É uma biblioteca ORM (Object-Relational Mapping) para TypeScript e JavaScript que simplifica a interação com bancos de dados relacionais. Ele suporta várias plataformas de banco de dados e fornece uma API fácil de usar para realizar operações CRUD (Create, Read, Update, Delete) e criar consultas complexas de forma programática.
 
-```bash
-# development
-$ npm run start
+## Para Desenvolver
 
-# watch mode
-$ npm run start:dev
+Dependencias
 
-# production mode
-$ npm run start:prod
-```
+- [Node Instalation](https://nodejs.org/en/download/current)
 
-## Test
+> Certifique-se de ter o Node 18.18.0 ou superior
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+node -v
 ```
 
-## Support
+- Clonar o repostório
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- Entrar na pasta e rodar o comando para baixar as dependências:
 
-## Stay in touch
+```bash
+npm install
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Para Rodar o projeto em development
 
-## License
+```bash
+npm run start:dev
+```
 
-Nest is [MIT licensed](LICENSE).
+## Para Testar a aplicação usando Docker/Docker Compose
+
+```shell
+docker-compose up -d
+
+curl --request GET --url http://localhost:3000/health --header 'User-Agent: insomnia/2023.5.8'
+
+## resposta esperada
+{
+	"status": "ok",
+	"info": {
+		"nestjs-docs": {
+			"status": "up"
+		}
+	},
+	"error": {},
+	"details": {
+		"nestjs-docs": {
+			"status": "up"
+		}
+	}
+}
+```
+
+## Para Testar a aplicação usando Minikube ( Kubernetes ) - local
+
+
+
+> Quando a app subir será inserido dados necessários para testar a criação de pedidos 
+
+| Atentente ID  | Cliente CPF | Produto ID        |
+|---------------|-------------|-------------------|
+| 1             | 15204180001 | 1 (Big Lanche)    |
+|               |             | 6 (Coca-Cola)     |
+|               |             | 22 (Batata Frita) |
+
+> - Para verificar a **lista de produtos** pode ser usado a API: `http://localhost:3000/products`
+> - Para verificar a **lista de clientes** pode ser usado a API: `http://localhost:3000/customers`
+> - Para verificar a **lista de Atendentes** pode ser usado a API: `http://localhost:3000/attendants`
+
+### Como testar usando o `curl`
+
+[Veja o documento](./doc/entregavel-how-to-test-challenge.md)
+
+### Pode ser testado o fluxo completo usando a collection insomnia
+
+[Collection de Teste que pode ser importada no Insomnia ou Postman](./doc/insomnia_collection_test.json)
+
+## Referencias importantes
+
+- [Documento PDF entegável de como testar a API](./doc/entregavel-how-to-test-challenge.pdf)
+- [Documentação DDD Miro](https://miro.com/app/board/uXjVN8Gnn2s=/?share_link_id=585190179998)
+- [Tech Challenge - Entregáveis fase 2](./doc/entregaveis-fase-2.md)
+- [Como Testar usando `curl`](./doc/como-testar.md)
+- [Collection de Teste que pode ser importada no Insomnia ou Postman](./doc/insomnia_collection_test.json)
+
+[0]: https://nestjs.com/
+[3]: https://www.npmjs.com/package/sqlite3
+[4]: https://typeorm.io/
+

@@ -3,7 +3,6 @@ export enum EPaymentStatus {
     PAID = 'PAID',
     REVERSED = 'REVERSED',
     CANCELED = 'CANCELED',
-    ERROR = 'ERROR',
-    NONE = 'NONE',
+    ERROR = 'ERROR'
   }
   
