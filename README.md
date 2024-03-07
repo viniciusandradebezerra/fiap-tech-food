@@ -103,19 +103,19 @@ curl --request GET --url http://localhost:3000/health --header 'User-Agent: inso
 
 ### Como testar usando o `curl`
 
-[Veja o documento](./doc/entregavel-how-to-test-challenge.md)
+[Veja o documento](./docs/entregavel-how-to-test-challenge.md)
 
 ### Pode ser testado o fluxo completo usando a collection insomnia
 
-[Collection de Teste que pode ser importada no Insomnia ou Postman](./doc/insomnia_collection_test.json)
+[Collection de Teste que pode ser importada no Insomnia ou Postman](./docs/insomnia_collection_test.json)
 
 ## Referencias importantes
 
-- [Documento PDF entegável de como testar a API](./doc/entregavel-how-to-test-challenge.pdf)
+- [Documento PDF entegável de como testar a API](./docs/entregavel-how-to-test-challenge.pdf)
 - [Documentação DDD Miro](https://miro.com/app/board/uXjVN8Gnn2s=/?share_link_id=585190179998)
-- [Tech Challenge - Entregáveis fase 2](./doc/entregaveis-fase-2.md)
-- [Como Testar usando `curl`](./doc/como-testar.md)
-- [Collection de Teste que pode ser importada no Insomnia ou Postman](./doc/insomnia_collection_test.json)
+- [Tech Challenge - Entregáveis fase 2](./docs/entregaveis-fase-2.md)
+- [Como Testar usando `curl`](./docs/como-testar.md)
+- [Collection de Teste que pode ser importada no Insomnia ou Postman](./docs/insomnia_collection_test.json)
 
 [0]: https://nestjs.com/
 [3]: https://www.npmjs.com/package/sqlite3
