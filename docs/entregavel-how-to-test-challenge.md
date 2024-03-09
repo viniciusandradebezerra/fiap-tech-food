@@ -85,7 +85,20 @@ curl --request GET --url http://localhost:3000/health
 
 o resultado esperado é:
 ```json
-{"status":"UP"}
+{
+	"status": "ok",
+	"info": {
+		"nestjs-docs": {
+			"status": "up"
+		}
+	},
+	"error": {},
+	"details": {
+		"nestjs-docs": {
+			"status": "up"
+		}
+	}
+}
 ```
 
 ## Passo 4 - Testar a API de Pedidos
