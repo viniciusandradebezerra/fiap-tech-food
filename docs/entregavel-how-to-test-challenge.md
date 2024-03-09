@@ -24,6 +24,7 @@ Entregáveis:
 
 Para rodar os testes será necessário ter instalado as seguintes ferramentas:
 
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [Minikube](https://minikube.sigs.k8s.io/docs/start/)
 - [Git](https://git-scm.com/downloads)
 - [Docker](https://docs.docker.com/engine/install/)
@@ -48,9 +49,11 @@ docker-compose up -d
 ```shell
 cd fiap-tech-food
 
+minikube start
+
 & minikube -p minikube docker-env --shell powershell | Invoke-Expression
 
-docker build -t fiap-tech-food:latest
+docker build -t fiap-tech-food:latest .
 
 docker images
 

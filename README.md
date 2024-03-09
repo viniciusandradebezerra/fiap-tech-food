@@ -8,6 +8,7 @@ Tabela de Contexto
   - [Stack](#stack)
   - [Para Desenvolver](#para-desenvolver)
   - [Para Testar a aplicação usando Docker/Docker Compose](#para-testar-a-aplicação-usando-dockerdocker-compose)
+  - [Para Testar a aplicação usando Kurbenetes e Docker](#para-testar-a-aplicação-usando-kurbenetes-e-docker)
     - [Como testar usando o `curl`](#como-testar-usando-o-curl)
     - [Pode ser testado o fluxo completo usando a collection insomnia](#pode-ser-testado-o-fluxo-completo-usando-a-collection-insomnia)
   - [Referencias importantes](#referencias-importantes)
@@ -83,6 +84,32 @@ curl --request GET --url http://localhost:3000/health --header 'User-Agent: inso
 		}
 	}
 }
+```
+
+## Para Testar a aplicação usando Kurbenetes e Docker
+
+```shell
+cd fiap-tech-food
+
+minikube start
+
+& minikube -p minikube docker-env --shell powershell | Invoke-Expression
+
+docker build -t fiap-tech-food:latest .
+
+docker images
+
+kubectl apply -f deployment.yaml
+
+kubectl apply -f service.yaml
+
+kubectl apply -f hpa.yaml
+
+kubctl get pods
+
+kubectl get service
+
+minibuke service <nome_service> --url
 ```
 
 ## Para Testar a aplicação usando Minikube ( Kubernetes ) - local
