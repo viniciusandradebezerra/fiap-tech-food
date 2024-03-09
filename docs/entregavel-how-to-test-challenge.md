@@ -5,6 +5,7 @@
 Entregáveis:
 - Miro com a Documentação DDD: https://miro.com/app/board/uXjVN8Gnn2s=/?share_link_id=585190179998
 - Repositório GitHub com o código: https://github.com/viniciusandradebezerra/fiap-tech-food
+- Link do video: https://vimeo.com/921494030
 
 ---
 
