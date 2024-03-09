@@ -105,11 +105,11 @@ kubectl apply -f service.yaml
 
 kubectl apply -f hpa.yaml
 
-kubctl get pods
+kubectl get pods
 
 kubectl get service
 
-minibuke service <nome_service> --url
+minikube service <nome_service> --url
 ```
 
 ## Para Testar a aplicação usando Minikube ( Kubernetes ) - local

@@ -63,11 +63,11 @@ kubectl apply -f service.yaml
 
 kubectl apply -f hpa.yaml
 
-kubctl get pods
+kubectl get pods
 
 kubectl get service
 
-minibuke service <nome_service> --url
+minikube service <nome_service> --url
 ```
 
 ## Passo 3 - Pegar a URL e substituir no insominia ( No vídeo mostra como realizar isso de maneira mais fácil ) 
